@@ -19,7 +19,7 @@ class Location(models.Model):
     country_code = models.CharField(max_length=50)
     onsite_instructions = models.CharField(max_length=255)
     location_details = models.CharField(max_length=255)
-    
+
 class Customer(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     customer_id = models.BigAutoField(primary_key=True)
@@ -41,7 +41,7 @@ class Driver(models.Model):
     vehicle_model = models.CharField(max_length=25)
     vehicle_year = models.DateField()
     vehicle_color = models.CharField(max_length=25)
-    
+
 class Contact(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, related_name='contacts', on_delete=models.CASCADE)
@@ -81,11 +81,9 @@ class Order(models.Model):
     order_pu = models.ForeignKey(Pickup, on_delete=models.SET_NULL, null=True)
     order_del = models.ForeignKey(Delivery, on_delete=models.SET_NULL, null=True)
     time_placed = models.DateTimeField(auto_now_add=True)
-    order_id = models.BigAutoField(primary_key=True, unique_for_date="order_placed")
+    order_id = models.BigAutoField(primary_key=True, unique_for_date="time_placed")
     order_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     order_complete = models.BooleanField(null=True)
     time_open = models.TimeField(null=True)
     time_to_complete = models.DateTimeField(null=True)
     rate = models.DecimalField(null=True, max_digits=10, decimal_places=3)
-    
-    
